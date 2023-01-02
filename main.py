@@ -27,10 +27,6 @@ def mqttrestart():
     machine.reset()
 
 
-def subscribe_message(topic, msg):
-    print((topic, msg))
-
-
 def get_data(MQ2, Ro):
     CH4 = MQ2_data.MQGetGasPercentage(MQ2_data.MQRead(MQ2) / Ro, MQ2_data.GAS_CH4)
     Propane = MQ2_data.MQGetGasPercentage(
