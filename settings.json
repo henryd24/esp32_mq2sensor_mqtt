@@ -1,7 +1,7 @@
 
 {
-    "ssid": "Telecom",
-    "password_wlan": "Cybersecurity.2020",
+    "ssid": "HenryDM",
+    "password_wlan": "1234567",
     "mqtt_user": "d5pZgDjt9IV4kyo",
     "mqtt_password": "A6Wza4EukVQeTFs",
     "mqtt_server": "192.168.20.40",
