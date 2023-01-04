@@ -13,7 +13,7 @@ global client_id
 
 def connect_and_subscribe(mqtt_server, user, password):
     client_id = ubinascii.hexlify(machine.unique_id())
-    client = MQTTClient(client_id, mqtt_server, user=user, password=password)
+    client = MQTTClient(client_id, server=mqtt_server, user=user, password=password,port=1883,keepalive=30)
     client.connect()
     print(
         "Connected to %s MQTT broker, subscribed to %s topic"
@@ -57,45 +57,48 @@ if __name__ == "__main__":
 
         station = network.WLAN(network.STA_IF)
         station.active(True)
-        station.connect(settings["ssid"], settings["password_wlan"])  # Connect to an AP
+        
+        if not station.isconnected():
+            station.connect(settings["ssid"], settings["password_wlan"])  # Connect to an AP
 
         while not station.isconnected():
             time.sleep(0.1)
         print("Conectado a la red wlan")
+        print(station.ifconfig())
 
+       
         try:
             print("Conectandose a mqttserver")
             client = connect_and_subscribe(
                 settings["mqtt_server"],
                 settings["mqtt_user"],
                 settings["mqtt_password"],
-            )
+                )
         except Exception as e:
-            pass
-        while station.isconnected() == False:
-            pass
+            print("Ha ocurrido un error: {}".format(e))
+            
         print("Connection successful")
-        print(station.ifconfig())
+        
 
         while True:
             message = get_data(MQ2, Ro)
-            print(
-                "CH4: {0:,.2f}ppm  Propano: {0:,.2f}ppm  Smoke: {0:,.2f}ppm CO: {0:,.2f}ppm  LPG: {0:,.2f}ppm".format(
-                    message["CH4"], message["Propane"], message["Smoke"], message["CO"],message["LPG"]
-                )
-            )
+            print(message)
             try:
                 client.publish(settings["mqtt_topic"], message.encode("utf-8"))
             except:
                 try:
                     print("Conectandose a mqttserver")
-                    client = connect_and_subscribe()
+                    client = connect_and_subscribe(settings["mqtt_server"],
+                                                   settings["mqtt_user"],
+                                                   settings["mqtt_password"]
+                                                   )
                 except Exception as e:
-                    # mqttrestart()
+                    print("Ha ocurrido un error: {}".format(e))
+                    mqttrestart()
                     pass
             time.sleep(5)
     except KeyboardInterrupt as e:
         # client.disconnect()
         print(e)
-        machine.reset()
         print("Apagando...")
+        machine.reset()

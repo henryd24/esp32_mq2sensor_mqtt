@@ -29,7 +29,7 @@ PROPANECurve = [2.3, 0.23, -0.47]  # same
 SmokeCurve = [2.3, 0.53, -0.44]
 COCurve = [2.3, 0.72, -0.34]
 LPGCurve = [2.3, 0.21, -0.47]
-Ro = 10
+Ro = 10 #In Kohm
 # ****************** MQResistanceCalculation *****************************************
 # Input:   raw_adc - raw value read from adc, which represents the voltage
 # Output:  the calculated sensor resistance

@@ -1,10 +1,11 @@
 
 {
-    "ssid": "HenryDM",
-    "password_wlan": "1234567",
-    "mqtt_user": "d5pZgDjt9IV4kyo",
-    "mqtt_password": "A6Wza4EukVQeTFs",
+    "ssid": "",
+    "password_wlan": "",
+    "mqtt_user": "",
+    "mqtt_password": "",
     "mqtt_server": "192.168.20.40",
     "mqtt_port": 1883,
     "mqtt_topic": "casa/gases"
 }
+
