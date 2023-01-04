@@ -5,7 +5,6 @@ import ubinascii
 import ujson
 import network
 
-# import paho.mqtt.publish as publish
 from umqtt.simple import MQTTClient
 
 global client_id
@@ -49,7 +48,8 @@ if __name__ == "__main__":
 
         print("Iniciando...")
         print("Calibrando...")
-        MQ2 = machine.ADC(machine.Pin(34))  # define the analog input by sensor
+        mq2pinSignal = 34
+        MQ2 = machine.ADC(machine.Pin(mq2pinSignal))  # define the analog input by sensor
         MQ2.atten(machine.ADC.ATTN_11DB)
         Ro = MQ2_data.MQCalibration(MQ2)
         print("La calibracion esta terminada...")
