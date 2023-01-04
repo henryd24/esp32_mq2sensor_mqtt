@@ -22,7 +22,7 @@ def connect_and_subscribe(mqtt_server, user, password):
 
 
 def mqttrestart():
-    print("Conexion con broker fallo.")
+    print("Broker connection failure.")
     machine.reset()
 
 
@@ -46,13 +46,13 @@ if __name__ == "__main__":
             settings = file.read()
         settings = ujson.loads(settings)
 
-        print("Iniciando...")
-        print("Calibrando...")
+        print("Initiating...")
+        print("Calibrating...")
         mq2pinSignal = 34
         MQ2 = machine.ADC(machine.Pin(mq2pinSignal))  # define the analog input by sensor
         MQ2.atten(machine.ADC.ATTN_11DB)
         Ro = MQ2_data.MQCalibration(MQ2)
-        print("La calibracion esta terminada...")
+        print("Calibration is completed...")
         print("Ro={} kohm".format(Ro))
 
         station = network.WLAN(network.STA_IF)
@@ -63,19 +63,19 @@ if __name__ == "__main__":
 
         while not station.isconnected():
             time.sleep(0.1)
-        print("Conectado a la red wlan")
+        print("Connected to the wlan network")
         print(station.ifconfig())
 
        
         try:
-            print("Conectandose a mqttserver")
+            print("Connecting to mqttserver")
             client = connect_and_subscribe(
                 settings["mqtt_server"],
                 settings["mqtt_user"],
                 settings["mqtt_password"],
                 )
         except Exception as e:
-            print("Ha ocurrido un error: {}".format(e))
+            print("An error has occurred: {}".format(e))
             
         print("Connection successful")
         
@@ -87,18 +87,16 @@ if __name__ == "__main__":
                 client.publish(settings["mqtt_topic"], message.encode("utf-8"))
             except:
                 try:
-                    print("Conectandose a mqttserver")
+                    print("Connecting to mqttserver")
                     client = connect_and_subscribe(settings["mqtt_server"],
                                                    settings["mqtt_user"],
                                                    settings["mqtt_password"]
                                                    )
                 except Exception as e:
-                    print("Ha ocurrido un error: {}".format(e))
+                    print("An error has occurred: {}".format(e))
                     mqttrestart()
                     pass
             time.sleep(5)
     except KeyboardInterrupt as e:
-        # client.disconnect()
         print(e)
-        print("Apagando...")
-        machine.reset()
+        print("Flashmode...")

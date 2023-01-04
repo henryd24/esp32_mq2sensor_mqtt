@@ -4,7 +4,7 @@ import time
 global RL_VALUE, CH4, MQ2, RO_CLEAN_AIR_FACTOR, CALIBRATION_SAMPLE_TIMES, CALIBRATION_SAMPLE_INTERVAL, READ_SAMPLE_INTERVAL, READ_SAMPLE_TIMES, GAS_CH4, GAS_PROPANE, CH4Curve, PROPANECurve
 global GAS_SMOKE, GAS_CO, GAS_LPG
 # ************************************************************************************
-RL_VALUE = 10  # defines the value of the load resistance in kilo ohms.
+RL_VALUE = 1  # defines the value of the load resistance in kilo ohms.
 RO_CLEAN_AIR_FACTOR = 9.83  # sensor resistance in the clean air / RO, which is derived from the table in the data sheet
 # ************************************************************************************
 CALIBRATION_SAMPLE_TIMES = (

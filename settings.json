@@ -4,8 +4,8 @@
     "password_wlan": "",
     "mqtt_user": "",
     "mqtt_password": "",
-    "mqtt_server": "192.168.20.40",
+    "mqtt_server": "",
     "mqtt_port": 1883,
-    "mqtt_topic": "casa/gases"
+    "mqtt_topic": ""
 }
 
