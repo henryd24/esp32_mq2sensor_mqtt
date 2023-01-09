@@ -34,9 +34,7 @@ def get_data(MQ2, Ro):
     Smoke = MQ2_data.MQGetGasPercentage(MQ2_data.MQRead(MQ2) / Ro, MQ2_data.GAS_SMOKE)
     CO = MQ2_data.MQGetGasPercentage(MQ2_data.MQRead(MQ2) / Ro, MQ2_data.GAS_CO)
     LPG = MQ2_data.MQGetGasPercentage(MQ2_data.MQRead(MQ2) / Ro, MQ2_data.GAS_LPG)
-    message = ujson.dumps(
-        {"CH4": CH4, "Propane": Propane, "Smoke": Smoke, "CO": CO, "LPG": LPG}
-    )
+    message = {"CH4": CH4, "Propane": Propane, "Smoke": Smoke, "CO": CO, "LPG": LPG}
     return message
 
 
@@ -82,6 +80,8 @@ if __name__ == "__main__":
 
         while True:
             message = get_data(MQ2, Ro)
+            message['ID'] = settings["id_device"]
+            message = ujson.dumps(message)
             print(message)
             try:
                 client.publish(settings["mqtt_topic"], message.encode("utf-8"))

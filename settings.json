@@ -6,6 +6,7 @@
     "mqtt_password": "",
     "mqtt_server": "",
     "mqtt_port": 1883,
-    "mqtt_topic": ""
+    "mqtt_topic": "",
+    "id_device": 1
 }
 
